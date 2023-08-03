@@ -1,40 +1,36 @@
 package com.parser.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UserAgentModel {
-    private String deviceName;
-    private String agentNameVersion;
-    private String operatingSystemClass;
-    private String operatingSystemNameVersion;
+    @JsonProperty("Name")
+    private String name;
+    @JsonProperty("Class")
+    private String deviceClass;
+    @JsonProperty("Brand")
+    private String brand;
 
-    public String getDeviceName() {
-        return deviceName;
+    public String getName() {
+        return name;
     }
 
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAgentNameVersion() {
-        return agentNameVersion;
+    public String getDeviceClass() {
+        return deviceClass;
     }
 
-    public void setAgentNameVersion(String agentNameVersion) {
-        this.agentNameVersion = agentNameVersion;
+    public void setDeviceClass(String deviceClass) {
+        this.deviceClass = deviceClass;
     }
 
-    public String getOperatingSystemClass() {
-        return operatingSystemClass;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setOperatingSystemClass(String operatingSystemClass) {
-        this.operatingSystemClass = operatingSystemClass;
-    }
-
-    public String getOperatingSystemNameVersion() {
-        return operatingSystemNameVersion;
-    }
-
-    public void setOperatingSystemNameVersion(String operatingSystemNameVersion) {
-        this.operatingSystemNameVersion = operatingSystemNameVersion;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 }

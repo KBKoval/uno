@@ -8,8 +8,6 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class AnalyzerServiceImpl implements AnalyzerService {
 
@@ -36,12 +34,13 @@ public class AnalyzerServiceImpl implements AnalyzerService {
                 .build();
 
         UserAgent agent = uaa.parse(userAgent);
-
+        for (String fieldName: agent.getAvailableFieldNamesSorted()) {
+            System.out.println(fieldName + " = " + agent.getValue(fieldName));
+        }
         agent.getAvailableFieldNamesSorted().forEach(fieldName -> {
-            if(fieldName.equalsIgnoreCase("DeviceName")) model.setDeviceName(agent.getValue(fieldName));
-            if(fieldName.equalsIgnoreCase("AgentNameVersion")) model.setAgentNameVersion(agent.getValue(fieldName));
-            if(fieldName.equalsIgnoreCase("OperatingSystemClass")) model.setOperatingSystemClass(agent.getValue(fieldName));
-            if(fieldName.equalsIgnoreCase("OperatingSystemNameVersionMajor")) model.setOperatingSystemNameVersion(agent.getValue(fieldName));
+            if(fieldName.equalsIgnoreCase("DeviceBrand")) model.setBrand(agent.getValue(fieldName));
+            if(fieldName.equalsIgnoreCase("DeviceClass")) model.setDeviceClass(agent.getValue(fieldName));
+            if(fieldName.equalsIgnoreCase("DeviceName")) model.setName(agent.getValue(fieldName));
         });
         return model;
     }
