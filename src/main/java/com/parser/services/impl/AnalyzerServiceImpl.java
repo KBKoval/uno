@@ -3,15 +3,17 @@ package com.parser.services.impl;
 
 import com.parser.models.UserAgentModel;
 import com.parser.services.interfaces.AnalyzerService;
-import jakarta.validation.constraints.NotNull;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class AnalyzerServiceImpl implements AnalyzerService {
-
-    public void parserTest(@NotNull String userAgent){
+    private static final transient Logger log = LoggerFactory.getLogger(AnalyzerService.class);
+    public void parserTest(String userAgent){
         UserAgentAnalyzer uaa = UserAgentAnalyzer
                 .newBuilder()
                 .hideMatcherLoadStats()
@@ -21,11 +23,11 @@ public class AnalyzerServiceImpl implements AnalyzerService {
         UserAgent agent = uaa.parse(userAgent);
 
         for (String fieldName: agent.getAvailableFieldNamesSorted()) {
-            System.out.println(fieldName + " = " + agent.getValue(fieldName));
+            log.info(fieldName + " = " + agent.getValue(fieldName));
         }
     }
 
-    public UserAgentModel  parser(@NotNull   String userAgent){
+    public UserAgentModel  parser(String userAgent){
         UserAgentModel model = new UserAgentModel();
         UserAgentAnalyzer uaa = UserAgentAnalyzer
                 .newBuilder()
@@ -35,7 +37,7 @@ public class AnalyzerServiceImpl implements AnalyzerService {
 
         UserAgent agent = uaa.parse(userAgent);
         for (String fieldName: agent.getAvailableFieldNamesSorted()) {
-            System.out.println(fieldName + " = " + agent.getValue(fieldName));
+            log.info(fieldName + " = " + agent.getValue(fieldName));
         }
         agent.getAvailableFieldNamesSorted().forEach(fieldName -> {
             if(fieldName.equalsIgnoreCase("DeviceBrand")) model.setBrand(agent.getValue(fieldName));
