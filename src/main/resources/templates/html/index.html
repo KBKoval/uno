@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{static/css/bootstrap.css}">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <h>Basic</h>
+        <div class="col-sm" data-th-if="${info}">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Key</th>
+                    <th scope="col">Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td data-th-text="${info.name}" style="width:15%;"></td>
+                </tr>
+                <tr>
+                    <td>Class</td>
+                    <td data-th-text="${info.deviceClass}" style="width:17%;"></td>
+                </tr>
+                <tr>
+                    <td>Brand</td>
+                    <td data-th-text="${info.brand}" style="width:17%;"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <h>Full</h>
+        <div class="col-sm">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Key</th>
+                    <th scope="col">Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="full: ${info.fullInfo}">
+                    <td th:text="${full.key}" />
+                    <td th:text="${full.value}" />
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
