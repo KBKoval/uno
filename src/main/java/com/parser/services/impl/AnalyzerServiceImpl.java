@@ -6,10 +6,13 @@ import com.parser.models.UserAgentModel;
 import com.parser.services.interfaces.AnalyzerService;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.LinkedCaseInsensitiveMap;
+
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,13 +20,15 @@ import java.util.TreeMap;
 @Service
 public class AnalyzerServiceImpl implements AnalyzerService {
     private static final Logger log = LoggerFactory.getLogger(AnalyzerServiceImpl.class);
-    private static final UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
+    private static final UserAgentAnalyzer  userAgentAnalyzer =UserAgentAnalyzer.newBuilder()
             .showMatcherLoadStats()
             .addOptionalResources("file:UserAgents*/*.yaml")
             .addOptionalResources("classpath*:UserAgents-*/*.yaml")
             .immediateInitialization()
             .keepTests()
             .build();
+
+
 
     public void parserTest(String userAgent) {
         UserAgent agent = userAgentAnalyzer.parse(userAgent);

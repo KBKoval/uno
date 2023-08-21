@@ -1,6 +1,8 @@
 package com.parser.controllers;
 
+
 import com.parser.models.UserAgentModel;
+import com.parser.services.impl.ParserThreadImpl;
 import com.parser.services.interfaces.AnalyzerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,23 +14,20 @@ import org.springframework.util.LinkedCaseInsensitiveMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.TreeMap;
+
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/parser")
 public class ParserController {
     private static final transient Logger log = LoggerFactory.getLogger(ParserController.class);
     private final AnalyzerService analyzer;
     private static final String FORMAT = "Header '%-20s' = %s";
 
+
     @Autowired
     public ParserController(AnalyzerService analyzer) {
         this.analyzer = analyzer;
-    }
-
-    @GetMapping("test")
-    public void parserTest() {
-        analyzer.parserTest("Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1");
     }
 
     @PostMapping("")
@@ -46,18 +45,18 @@ public class ParserController {
 
     @GetMapping("header")
     public ResponseEntity<UserAgentModel> parserHeader(@RequestHeader Map<String, String> headers) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+
+        responseHeaders.add("Accept-CH", String.join(", ",analyzer.getSupportedClientHintHeaders() )  );
+
         LinkedCaseInsensitiveMap<String> requestHeaders = new LinkedCaseInsensitiveMap<>();
         requestHeaders.putAll(headers);
 
         UserAgentModel model = analyzer.parser(requestHeaders);
 
-        HttpHeaders responseHeaders = new HttpHeaders();
-
-        responseHeaders.add("Accept-CH", String.join(", ",analyzer.getSupportedClientHintHeaders() )  );
-
-
-
 
         return new ResponseEntity<>(model, responseHeaders, HttpStatus.OK);
     }
+
+
 }

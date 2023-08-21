@@ -1,0 +1,3 @@
+2023-08-21 14:16:36,117 INFO  [com.parser.Application] Starting Application using Java 11.0.2 on DESKTOP-GQT1M87 with PID 30500 (C:\uno\target\classes started by Пользователь in C:\uno)
+2023-08-21 14:16:36,117 INFO  [com.parser.Application] No active profile set, falling back to 1 default profile: "default"
+2023-08-21 14:16:39,253 INFO  [com.parser.Application] Started Application in 3.458 seconds (JVM running for 4.454)
