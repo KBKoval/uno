@@ -37,7 +37,7 @@ public class ParserController {
 
     @GetMapping("agent")
     public ResponseEntity<UserAgentModel> parserHeader(@RequestHeader(value = "User-Agent") String userAgent) {
-        log.info("\n++++++++++++++++++++++++++++++");
+        log.info("\n++++++++++++++++       ++++++++++++++");
         log.info(userAgent);
         log.info("++++++++++++++++++++++++++++++\n");
         return new ResponseEntity<>(analyzer.parser(userAgent), HttpStatus.OK);
